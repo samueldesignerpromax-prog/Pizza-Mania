@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cardápio · Pizza Mania</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="logo"><span>🍕</span> Pizza<span>Mania</span></a>
+    <nav class="nav" id="nav">
+      <a href="index.html"><i class="fas fa-home"></i> Início</a>
+      <a href="cardapio.html" class="active"><i class="fas fa-pizza-slice"></i> Cardápio</a>
+      <a href="pedido.html"><i class="fas fa-box"></i> Meus Pedidos</a>
+      <a href="login.html"><i class="fas fa-user"></i> Login</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="carrinho.html" class="cart-btn"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></a>
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="container">
+    <h1>🍕 Nosso Cardápio</h1>
+    <p>Escolha seus sabores favoritos e monte sua pizza perfeita</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div class="cardapio-toolbar">
+      <div class="search-box">
+        <i class="fas fa-search"></i>
+        <input type="text" id="busca" placeholder="Buscar pizza, sabor ou bebida...">
+      </div>
+      <select id="ordenar" class="ordenar">
+        <option value="padrao">Ordenar por: Padrão</option>
+        <option value="menor">Menor preço</option>
+        <option value="maior">Maior preço</option>
+        <option value="nome">Nome A-Z</option>
+      </select>
+    </div>
+
+    <div class="filtros" id="filtros">
+      <button class="filtro active" data-cat="todas">Todas</button>
+      <button class="filtro" data-cat="tradicionais">Tradicionais</button>
+      <button class="filtro" data-cat="especiais">Especiais</button>
+      <button class="filtro" data-cat="carnes">Carnes</button>
+      <button class="filtro" data-cat="queijos">Queijos</button>
+      <button class="filtro" data-cat="doces">Doces</button>
+      <button class="filtro" data-cat="bebidas">Bebidas</button>
+    </div>
+
+    <div class="products-grid" id="gridProdutos"></div>
+    <div id="semResultados" class="sem-resultados" style="display:none;">
+      <p>🍕 Nenhum produto encontrado.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="index.html" class="logo"><span>🍕</span> Pizza<span>Mania</span></a>
+      <p class="footer-tag">"Uma explosão de sabor em cada fatia! 🍕"</p>
+      <div class="socials">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div><h4>Links</h4><ul><li><a href="index.html">Início</a></li><li><a href="cardapio.html">Cardápio</a></li></ul></div>
+    <div><h4>Horário</h4><p><i class="fas fa-clock"></i> 18:00 às 23:30</p></div>
+    <div><h4>Contato</h4><p><i class="fas fa-phone"></i> (11) 99999-9999</p></div>
+  </div>
+  <div class="footer-bottom">© 2026 Pizza Mania</div>
+</footer>
+
+<button class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></button>
+
+<script src="js/produtos.js"></script>
+<script src="js/script.js"></script>
+<script>
+  let filtroAtual = 'todas';
+  let buscaAtual = '';
+  let ordenarAtual = 'padrao';
+
+  function aplicarFiltros() {
+    let lista = [...PRODUTOS];
+    if (filtroAtual !== 'todas') lista = lista.filter(p => p.categoria === filtroAtual);
+    if (buscaAtual) lista = lista.filter(p => p.nome.toLowerCase().includes(buscaAtual.toLowerCase()));
+    if (ordenarAtual === 'menor') lista.sort((a,b) => a.precoBase - b.precoBase);
+    if (ordenarAtual === 'maior') lista.sort((a,b) => b.precoBase - a.precoBase);
+    if (ordenarAtual === 'nome') lista.sort((a,b) => a.nome.localeCompare(b.nome));
+    document.getElementById('gridProdutos').innerHTML = lista.map(p => cardProduto(p)).join('');
+    document.getElementById('semResultados').style.display = lista.length ? 'none' : 'block';
+    bindCardEvents();
+  }
+
+  document.getElementById('busca').addEventListener('input', e => { buscaAtual = e.target.value; aplicarFiltros(); });
+  document.getElementById('ordenar').addEventListener('change', e => { ordenarAtual = e.target.value; aplicarFiltros(); });
+  document.querySelectorAll('.filtro').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filtro').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      filtroAtual = btn.dataset.cat;
+      aplicarFiltros();
+    });
+  });
+
+  aplicarFiltros();
+</script>
+</body>
+</html>
