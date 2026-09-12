@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Personalize sua Pizza · Pizza Mania</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="logo"><span>🍕</span> Pizza<span>Mania</span></a>
+    <nav class="nav" id="nav">
+      <a href="index.html"><i class="fas fa-home"></i> Início</a>
+      <a href="cardapio.html"><i class="fas fa-pizza-slice"></i> Cardápio</a>
+      <a href="pedido.html"><i class="fas fa-box"></i> Meus Pedidos</a>
+      <a href="login.html"><i class="fas fa-user"></i> Login</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="carrinho.html" class="cart-btn"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></a>
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="container">
+    <h1>🧑‍🍳 Monte sua Pizza</h1>
+    <p>Personalize do seu jeito e veja o preço atualizar em tempo real</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container pizza-builder">
+    <div class="builder-form">
+      <div class="builder-group">
+        <h3>1. Tamanho</h3>
+        <div class="opcoes" data-group="tamanho">
+          <label><input type="radio" name="tamanho" value="broto" data-mult="0.6"><span>Broto</span><small>R$ 29,90</small></label>
+          <label><input type="radio" name="tamanho" value="media" data-mult="0.8"><span>Média</span><small>R$ 39,90</small></label>
+          <label><input type="radio" name="tamanho" value="grande" data-mult="1" checked><span>Grande</span><small>R$ 49,90</small></label>
+          <label><input type="radio" name="tamanho" value="familia" data-mult="1.2"><span>Família</span><small>R$ 59,90</small></label>
+        </div>
+      </div>
+
+      <div class="builder-group">
+        <h3>2. Massa</h3>
+        <div class="opcoes" data-group="massa">
+          <label><input type="radio" name="massa" value="Tradicional" checked><span>Tradicional</span></label>
+          <label><input type="radio" name="massa" value="Fina"><span>Fina</span></label>
+          <label><input type="radio" name="massa" value="Grossa"><span>Grossa</span></label>
+        </div>
+      </div>
+
+      <div class="builder-group">
+        <h3>3. Borda</h3>
+        <div class="opcoes" data-group="borda">
+          <label><input type="radio" name="borda" value="Sem borda" data-preco="0" checked><span>Sem borda</span><small>Grátis</small></label>
+          <label><input type="radio" name="borda" value="Catupiry" data-preco="5"><span>Catupiry</span><small>+ R$ 5,00</small></label>
+          <label><input type="radio" name="borda" value="Cheddar" data-preco="5"><span>Cheddar</span><small>+ R$ 5,00</small></label>
+          <label><input type="radio" name="borda" value="Chocolate" data-preco="7"><span>Chocolate</span><small>+ R$ 7,00</small></label>
+          <label><input type="radio" name="borda" value="Cream Cheese" data-preco="6"><span>Cream Cheese</span><small>+ R$ 6,00</small></label>
+        </div>
+      </div>
+
+      <div class="builder-group">
+        <h3>4. Sabores (1 ou 2)</h3>
+        <select id="sabor1" class="input-select"></select>
+        <select id="sabor2" class="input-select"><option value="">+ Segundo sabor (opcional)</option></select>
+      </div>
+
+      <div class="builder-group">
+        <h3>5. Adicionais</h3>
+        <div class="adicionais" id="adicionais"></div>
+      </div>
+
+      <div class="builder-group">
+        <h3>6. Observação</h3>
+        <textarea id="observacao" placeholder="Ex: sem cebola, bem passada, cortada em 8 pedaços..."></textarea>
+      </div>
+    </div>
+
+    <aside class="builder-resumo">
+      <h3>Resumo do Pedido</h3>
+      <div class="resumo-item"><span>Pizza <span id="rTamanho">Grande</span></span><span id="rBase">R$ 49,90</span></div>
+      <div class="resumo-item"><span>Massa <span id="rMassa">Tradicional</span></span><span>—</span></div>
+      <div class="resumo-item"><span>Borda <span id="rBorda">Sem borda</span></span><span id="rBordaPreco">R$ 0,00</span></div>
+      <div class="resumo-item"><span>Sabor 1: <span id="rS1">—</span></span><span></span></div>
+      <div class="resumo-item" id="linhaS2" style="display:none"><span>Sabor 2: <span id="rS2">—</span></span><span></span></div>
+      <div class="resumo-item"><span>Adicionais</span><span id="rAdic">R$ 0,00</span></div>
+      <hr>
+      <div class="resumo-total"><span>Total</span><strong id="rTotal">R$ 49,90</strong></div>
+      <button class="btn btn-primary btn-block" id="addAoCarrinho"><i class="fas fa-cart-plus"></i> Adicionar ao Carrinho</button>
+    </aside>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div><a href="index.html" class="logo"><span>🍕</span> Pizza<span>Mania</span></a><p class="footer-tag">"Uma explosão de sabor!"</p></div>
+    <div><h4>Links</h4><ul><li><a href="index.html">Início</a></li><li><a href="cardapio.html">Cardápio</a></li></ul></div>
+    <div><h4>Horário</h4><p>18:00 às 23:30</p></div>
+    <div><h4>Contato</h4><p>(11) 99999-9999</p></div>
+  </div>
+  <div class="footer-bottom">© 2026 Pizza Mania</div>
+</footer>
+
+<script src="js/produtos.js"></script>
+<script src="js/script.js"></script>
+<script>
+  const ADICIONAIS = [
+    {nome:'Queijo', preco:5},{nome:'Bacon', preco:6},{nome:'Catupiry', preco:5},{nome:'Cheddar', preco:5},
+    {nome:'Milho', preco:3},{nome:'Calabresa', preco:6},{nome:'Frango', preco:7},{nome:'Presunto', preco:5},
+    {nome:'Pepperoni', preco:7},{nome:'Cebola', preco:2},{nome:'Tomate', preco:2},{nome:'Palmito', preco:6}
+  ];
+
+  // Popula sabores
+  const sabores = PRODUTOS.filter(p => p.categoria !== 'bebidas');
+  const sel1 = document.getElementById('sabor1');
+  const sel2 = document.getElementById('sabor2');
+  sel1.innerHTML = '<option value="">Escolha um sabor</option>' + sabores.map(s => `<option value="${s.id}">${s.nome}</option>`).join('');
+  sel2.innerHTML = '<option value="">+ Segundo sabor (opcional)</option>' + sabores.map(s => `<option value="${s.id}">${s.nome}</option>`).join('');
+
+  // Popula adicionais
+  document.getElementById('adicionais').innerHTML = ADICIONAIS.map((a,i) => `
+    <label class="check-item"><input type="checkbox" data-preco="${a.preco}" data-nome="${a.nome}"><span>${a.nome}</span><small>+ R$ ${a.preco.toFixed(2).replace('.',',')}</small></label>
+  `).join('');
+
+  function calcular() {
+    const tamanho = document.querySelector('input[name="tamanho"]:checked');
+    const mult = parseFloat(tamanho.dataset.mult);
+    const base = 49.90 * mult;
+
+    const borda = document.querySelector('input[name="borda"]:checked');
+    const bordaPreco = parseFloat(borda.dataset.preco || 0);
+
+    let adicPreco = 0;
+    document.querySelectorAll('#adicionais input:checked').forEach(i => adicPreco += parseFloat(i.dataset.preco));
+
+    const total = base + bordaPreco + adicPreco;
+
+    document.getElementById('rTamanho').textContent = tamanho.parentElement.querySelector('span').textContent;
+    document.getElementById('rBase').textContent = 'R$ ' + base.toFixed(2).replace('.',',');
+    document.getElementById('rMassa').textContent = document.querySelector('input[name="massa"]:checked').value;
+    document.getElementById('rBorda').textContent = borda.value;
+    document.getElementById('rBordaPreco').textContent = 'R$ ' + bordaPreco.toFixed(2).replace('.',',');
+    document.getElementById('rAdic').textContent = 'R$ ' + adicPreco.toFixed(2).replace('.',',');
+    document.getElementById('rTotal').textContent = 'R$ ' + total.toFixed(2).replace('.',',');
+
+    // Sabores
+    const s1 = PRODUTOS.find(p => p.id == sel1.value);
+    const s2 = PRODUTOS.find(p => p.id == sel2.value);
+    document.getElementById('rS1').textContent = s1 ? s1.nome : '—';
+    if (s2) { document.getElementById('linhaS2').style.display = 'flex'; document.getElementById('rS2').textContent = s2.nome; }
+    else document.getElementById('linhaS2').style.display = 'none';
+
+    return { total, tamanho, borda, s1, s2, base, bordaPreco, adicPreco };
+  }
+
+  document.querySelector('.pizza-builder').addEventListener('input', calcular);
+  document.querySelector('.pizza-builder').addEventListener('change', calcular);
+  calcular();
+
+  document.getElementById('addAoCarrinho').addEventListener('click', () => {
+    const c = calcular();
+    if (!c.s1) { showToast('Escolha ao menos 1 sabor!', 'error'); return; }
+    const adicionais = [...document.querySelectorAll('#adicionais input:checked')].map(i => i.dataset.nome);
+    const item = {
+      id: 'custom_' + Date.now(),
+      nome: `Pizza ${c.tamanho.value} - ${c.s1.nome}${c.s2 ? ' + ' + c.s2.nome : ''}`,
+      preco: c.total,
+      qtd: 1,
+      emoji: '🍕',
+      obs: document.getElementById('observacao').value,
+      detalhes: { massa: document.querySelector('input[name="massa"]:checked').value, borda: c.borda.value, adicionais }
+    };
+    addCarrinho(item);
+    showToast('Pizza adicionada ao carrinho! 🍕', 'success');
+    setTimeout(() => window.location.href = 'carrinho.html', 1000);
+  });
+</script>
+</body>
+</html>
