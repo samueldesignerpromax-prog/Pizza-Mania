@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrinho · Pizza Mania</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="logo"><span>🍕</span> Pizza<span>Mania</span></a>
+    <nav class="nav" id="nav">
+      <a href="index.html"><i class="fas fa-home"></i> Início</a>
+      <a href="cardapio.html"><i class="fas fa-pizza-slice"></i> Cardápio</a>
+      <a href="pedido.html"><i class="fas fa-box"></i> Meus Pedidos</a>
+      <a href="login.html"><i class="fas fa-user"></i> Login</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="carrinho.html" class="cart-btn"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></a>
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="container"><h1>🛒 Seu Carrinho</h1><p>Revise seu pedido antes de finalizar</p></div>
+</section>
+
+<section class="section">
+  <div class="container carrinho-layout">
+    <div class="carrinho-itens" id="carrinhoItens"></div>
+    <aside class="carrinho-resumo">
+      <h3>Resumo</h3>
+      <div class="resumo-item"><span>Subtotal</span><span id="cSubtotal">R$ 0,00</span></div>
+      <div class="resumo-item"><span>Taxa de entrega</span><span id="cTaxa">R$ 8,00</span></div>
+      <hr>
+      <div class="resumo-total"><span>Total</span><strong id="cTotal">R$ 0,00</strong></div>
+      <a href="checkout.html" class="btn btn-primary btn-block" id="btnCheckout"><i class="fas fa-credit-card"></i> Continuar para pagamento</a>
+      <a href="cardapio.html" class="btn btn-outline btn-block" style="margin-top:.5rem"><i class="fas fa-plus"></i> Adicionar mais itens</a>
+      <button class="btn-limpar" id="limparCarrinho"><i class="fas fa-trash"></i> Limpar carrinho</button>
+    </aside>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div><a href="index.html" class="logo"><span>🍕</span> Pizza<span>Mania</span></a></div>
+    <div><h4>Links</h4><ul><li><a href="index.html">Início</a></li><li><a href="cardapio.html">Cardápio</a></li></ul></div>
+    <div><h4>Horário</h4><p>18:00 às 23:30</p></div>
+    <div><h4>Contato</h4><p>(11) 99999-9999</p></div>
+  </div>
+  <div class="footer-bottom">© 2026 Pizza Mania</div>
+</footer>
+
+<button class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></button>
+
+<script src="js/produtos.js"></script>
+<script src="js/script.js"></script>
+<script src="js/carrinho.js"></script>
+<script>
+  function renderCarrinho() {
+    const carrinho = getCarrinho();
+    const box = document.getElementById('carrinhoItens');
+    if (!carrinho.length) {
+      box.innerHTML = `<div class="carrinho-vazio"><div style="font-size:4rem">🛒</div><h3>Seu carrinho está vazio</h3><p>Adicione pizzas e bebidas para continuar</p><a href="cardapio.html" class="btn btn-primary">Ver Cardápio</a></div>`;
+      document.querySelector('.carrinho-resumo').style.display = 'none';
+      return;
+    }
+    document.querySelector('.carrinho-resumo').style.display = 'block';
+    box.innerHTML = carrinho.map((it, i) => `
+      <div class="carrinho-item">
+        <div class="ci-img">${it.emoji || '🍕'}</div>
+        <div class="ci-info">
+          <h4>${it.nome}</h4>
+          ${it.detalhes ? `<small>Massa: ${it.detalhes.massa} · Borda: ${it.detalhes.borda}${it.detalhes.adicionais.length ? ' · ' + it.detalhes.adicionais.join(', ') : ''}</small>` : ''}
+          ${it.obs ? `<small><i class="fas fa-comment"></i> ${it.obs}</small>` : ''}
+          <p class="ci-preco">R$ ${it.preco.toFixed(2).replace('.',',')}</p>
+        </div>
+        <div class="ci-qtd">
+          <button onclick="alterarQtd(${i}, -1)"><i class="fas fa-minus"></i></button>
+          <span>${it.qtd}</span>
+          <button onclick="alterarQtd(${i}, 1)"><i class="fas fa-plus"></i></button>
+        </div>
+        <div class="ci-subtotal">R$ ${(it.preco * it.qtd).toFixed(2).replace('.',',')}</div>
+        <button class="ci-remove" onclick="removerItem(${i})"><i class="fas fa-trash"></i></button>
+      </div>
+    `).join('');
+
+    const subtotal = carrinho.reduce((s,i) => s + i.preco * i.qtd, 0);
+    const taxa = 8;
+    document.getElementById('cSubtotal').textContent = 'R$ ' + subtotal.toFixed(2).replace('.',',');
+    document.getElementById('cTaxa').textContent = 'R$ ' + taxa.toFixed(2).replace('.',',');
+    document.getElementById('cTotal').textContent = 'R$ ' + (subtotal + taxa).toFixed(2).replace('.',',');
+  }
+
+  function alterarQtd(i, delta) {
+    const c = getCarrinho();
+    c[i].qtd += delta;
+    if (c[i].qtd < 1) c[i].qtd = 1;
+    setCarrinho(c); renderCarrinho(); updateCartCount();
+  }
+  function removerItem(i) {
+    const c = getCarrinho();
+    c.splice(i, 1);
+    setCarrinho(c); renderCarrinho(); updateCartCount();
+    showToast('Item removido', 'info');
+  }
+  document.getElementById('limparCarrinho')?.addEventListener('click', () => {
+    if (confirm('Tem certeza que deseja limpar todo o carrinho?')) {
+      setCarrinho([]); renderCarrinho(); updateCartCount();
+      showToast('Carrinho limpo', 'info');
+    }
+  });
+
+  renderCarrinho();
+</script>
+</body>
+</html>
