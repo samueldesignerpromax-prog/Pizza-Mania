@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pizza Mania 🍕 - A pizza que deixa seu dia mais gostoso</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="loading" id="loading">
+  <div class="pizza-loader">🍕</div>
+</div>
+
+<header class="header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="logo"><span>🍕</span> Pizza<span>Mania</span></a>
+    <nav class="nav" id="nav">
+      <a href="index.html"><i class="fas fa-home"></i> Início</a>
+      <a href="cardapio.html"><i class="fas fa-pizza-slice"></i> Cardápio</a>
+      <a href="index.html#promocoes"><i class="fas fa-fire"></i> Promoções</a>
+      <a href="pedido.html"><i class="fas fa-box"></i> Meus Pedidos</a>
+      <a href="login.html"><i class="fas fa-user"></i> Login</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="carrinho.html" class="cart-btn">
+        <i class="fas fa-shopping-cart"></i>
+        <span class="cart-count" id="cartCount">0</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<section class="hero">
+  <div class="container hero-wrap">
+    <div class="hero-text">
+      <span class="badge">🔥 Entrega em até 30 min</span>
+      <h1>🍕 A pizza que deixa seu dia <span>muito mais gostoso!</span></h1>
+      <p>Escolha seus sabores favoritos e peça agora.</p>
+      <div class="hero-buttons">
+        <a href="cardapio.html" class="btn btn-primary"><i class="fas fa-book-open"></i> Ver Cardápio</a>
+        <a href="pizza.html" class="btn btn-secondary"><i class="fas fa-pizza-slice"></i> Fazer Pedido</a>
+      </div>
+      <div class="hero-info">
+        <div><i class="fas fa-star"></i> <strong>4.9</strong> (2.5k avaliações)</div>
+        <div><i class="fas fa-clock"></i> <strong>30 min</strong> entrega média</div>
+      </div>
+    </div>
+    <div class="hero-img">
+      <div class="pizza-emoji">🍕</div>
+      <span class="float-item i1">🧀</span>
+      <span class="float-item i2">🍅</span>
+      <span class="float-item i3">🌿</span>
+      <span class="float-item i4">🥓</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="promocoes">
+  <div class="container">
+    <div class="promo-banner">
+      <div class="promo-content">
+        <span class="promo-tag">🔥 PROMOÇÃO DO DIA</span>
+        <h2>Pizza Grande + Refrigerante 2L</h2>
+        <p>Escolha sua pizza favorita e ganhe um refrigerante gelado!</p>
+        <p class="promo-price">R$ 59,90 <span>R$ 79,90</span></p>
+        <a href="cardapio.html" class="btn btn-primary">Aproveitar Agora <i class="fas fa-arrow-right"></i></a>
+      </div>
+      <div class="promo-img">🥤🍕</div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title"><span>⭐</span> Mais Pedidas</h2>
+    <div class="products-grid" id="maisPedidas"></div>
+  </div>
+</section>
+
+<section class="section bg-light">
+  <div class="container">
+    <h2 class="section-title"><span>🍕</span> Pizzas Salgadas</h2>
+    <div class="products-grid" id="salgadas"></div>
+    <div class="center-btn"><a href="cardapio.html" class="btn btn-outline">Ver todas <i class="fas fa-arrow-right"></i></a></div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <h2 class="section-title"><span>🍫</span> Pizzas Doces</h2>
+    <div class="products-grid" id="doces"></div>
+  </div>
+</section>
+
+<section class="section bg-light">
+  <div class="container">
+    <h2 class="section-title"><span>🥤</span> Bebidas</h2>
+    <div class="products-grid" id="bebidas"></div>
+  </div>
+</section>
+
+<section class="section why">
+  <div class="container">
+    <h2 class="section-title"><span>💚</span> Por que escolher a Pizza Mania?</h2>
+    <div class="why-grid">
+      <div class="why-card"><div class="why-icon">🥬</div><h3>Ingredientes Selecionados</h3><p>Só trabalhamos com produtos frescos e de primeira qualidade.</p></div>
+      <div class="why-card"><div class="why-icon">👨‍🍳</div><h3>Massa Fresquinha</h3><p>Massa feita diariamente, no ponto perfeito de sabor e textura.</p></div>
+      <div class="why-card"><div class="why-icon">🛵</div><h3>Entrega Rápida</h3><p>Entregamos em até 30 minutos na sua casa, quentinha.</p></div>
+      <div class="why-card"><div class="why-icon">💛</div><h3>Atendimento de Qualidade</h3><p>Time preparado para te atender com carinho e atenção.</p></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="index.html" class="logo"><span>🍕</span> Pizza<span>Mania</span></a>
+      <p class="footer-tag">"Uma explosão de sabor em cada fatia! 🍕"</p>
+      <div class="socials">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-facebook"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+        <a href="#"><i class="fab fa-tiktok"></i></a>
+      </div>
+    </div>
+    <div>
+      <h4>Links</h4>
+      <ul>
+        <li><a href="index.html">Início</a></li>
+        <li><a href="cardapio.html">Cardápio</a></li>
+        <li><a href="#">Sobre nós</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Horário</h4>
+      <p><i class="fas fa-clock"></i> Todos os dias<br>18:00 às 23:30</p>
+    </div>
+    <div>
+      <h4>Contato</h4>
+      <p><i class="fas fa-phone"></i> (11) 99999-9999</p>
+      <p><i class="fas fa-map-marker-alt"></i> Rua das Pizzas, 123</p>
+    </div>
+  </div>
+  <div class="footer-bottom">© 2026 Pizza Mania. Todos os direitos reservados. 🍕</div>
+</footer>
+
+<button class="back-to-top" id="backToTop"><i class="fas fa-chevron-up"></i></button>
+
+<script src="js/produtos.js"></script>
+<script src="js/script.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    renderProductCards('maisPedidas', PRODUTOS.filter(p => p.destaque).slice(0,4));
+    renderProductCards('salgadas', PRODUTOS.filter(p => p.categoria === 'salgadas').slice(0,4));
+    renderProductCards('doces', PRODUTOS.filter(p => p.categoria === 'doces').slice(0,4));
+    renderProductCards('bebidas', PRODUTOS.filter(p => p.categoria === 'bebidas').slice(0,4));
+  });
+</script>
+</body>
+</html>
