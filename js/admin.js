@@ -80,4 +80,27 @@ function editarProduto(id) {
 
 function excluirProduto(id) {
   if (!confirm('Excluir este produto?')) return;
-  const
+  const i = PRODUTOS.findIndex(x => x.id === id);
+  if (i > -1) { PRODUTOS.splice(i, 1); renderTabelaProdutos(); showToast('Produto excluído', 'info'); }
+}
+
+function salvarProduto() {
+  const nome = document.getElementById('pNome').value.trim();
+  const desc = document.getElementById('pDesc').value.trim();
+  const cat = document.getElementById('pCat').value;
+  const preco = parseFloat(document.getElementById('pPreco').value);
+  const emoji = document.getElementById('pEmoji').value.trim() || '🍕';
+  if (!nome || !preco) { showToast('Preencha nome e preço', 'error'); return; }
+
+  if (editandoId) {
+    const p = PRODUTOS.find(x => x.id === editandoId);
+    Object.assign(p, { nome, desc, categoria: cat, precoBase: preco, emoji });
+    showToast('Produto atualizado!', 'success');
+  } else {
+    const novo = { id: Date.now(), nome, desc, categoria: cat, precoBase: preco, emoji };
+    PRODUTOS.push(novo);
+    showToast('Produto cadastrado!', 'success');
+  }
+  fecharModal();
+  renderTabelaProdutos();
+}
