@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pedidos Admin · Pizza Mania</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header admin-header">
+  <div class="container nav-wrap">
+    <a href="admin.html" class="logo"><span>🍕</span> Pizza<span>Mania</span> <small style="font-size:.6rem;background:#ff6b00;padding:2px 8px;border-radius:20px">ADMIN</small></a>
+    <nav class="nav" id="nav">
+      <a href="admin.html"><i class="fas fa-chart-line"></i> Dashboard</a>
+      <a href="pedidos-admin.html" class="active"><i class="fas fa-receipt"></i> Pedidos</a>
+      <a href="produtos-admin.html"><i class="fas fa-pizza-slice"></i> Produtos</a>
+      <a href="index.html"><i class="fas fa-globe"></i> Ver Site</a>
+    </nav>
+    <div class="nav-actions"><button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button></div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <h1 class="admin-title">📋 Gerenciar Pedidos</h1>
+    <div class="tabela-wrap">
+      <table class="tabela" id="tabelaPedidos">
+        <thead><tr><th>#</th><th>Cliente</th><th>Itens</th><th>Valor</th><th>Pagamento</th><th>Status</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="footer-bottom">© 2026 Pizza Mania Admin</div></footer>
+
+<script src="js/produtos.js"></script>
+<script src="js/script.js"></script>
+<script src="js/admin.js"></script>
+<script>renderTabelaPedidos();</script>
+</body>
+</html>
