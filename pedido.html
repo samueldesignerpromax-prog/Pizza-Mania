@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meu Pedido · Pizza Mania</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="logo"><span>🍕</span> Pizza<span>Mania</span></a>
+    <nav class="nav" id="nav">
+      <a href="index.html"><i class="fas fa-home"></i> Início</a>
+      <a href="cardapio.html"><i class="fas fa-pizza-slice"></i> Cardápio</a>
+      <a href="pedido.html" class="active"><i class="fas fa-box"></i> Meus Pedidos</a>
+    </nav>
+    <div class="nav-actions">
+      <a href="carrinho.html" class="cart-btn"><i class="fas fa-shopping-cart"></i><span class="cart-count" id="cartCount">0</span></a>
+    </div>
+  </div>
+</header>
+
+<section class="page-header">
+  <div class="container"><h1>📦 Acompanhar Pedido</h1><p>Veja o status do seu pedido em tempo real</p></div>
+</section>
+
+<section class="section">
+  <div class="container">
+    <div id="pedidoBox" class="pedido-box"></div>
+  </div>
+</section>
+
+<footer class="footer"><div class="footer-bottom">© 2026 Pizza Mania</div></footer>
+
+<script src="js/produtos.js"></script>
+<script src="js/script.js"></script>
+<script>
+  const pedido = JSON.parse(localStorage.getItem('ultimoPedido') || 'null');
+
+  if (!pedido) {
+    document.getElementById('pedidoBox').innerHTML = `
+      <div class="carrinho-vazio"><div style="font-size:4rem">📦</div>
+      <h3>Nenhum pedido recente</h3><p>Faça seu primeiro pedido agora!</p>
+      <a href="cardapio.html" class="btn btn-primary">Ver Cardápio</a></div>`;
+  } else {
+    const etapas = [
+      { ico:'✅', label:'Pedido recebido', t:'19:00' },
+      { ico:'🔄', label:'Em preparação', t:'19:02' },
+      { ico:'🍕', label:'Pizza no forno', t:'19:05' },
+      { ico:'🛵', label:'Saiu para entrega', t:'19:15' },
+      { ico:'🏠', label:'Pedido entregue', t:'19:30' }
+    ];
+    document.getElementById('pedidoBox').innerHTML = `
+      <div class="pedido-header">
+        <div><h2>Pedido <span class="pedido-num">#${pedido.numero}</span></h2><p>Feito em ${pedido.data}</p></div>
+        <span class="status-badge status-preparando">Em andamento</span>
+      </div>
+      <div class="timeline">
+        ${etapas.map((e,i) => `
+          <div class="tl-item ${i < 3 ? 'active' : ''}" data-i="${i}">
+            <div class="tl-dot">${e.ico}</div>
+            <div class="tl-info"><strong>${e.label}</strong><small>${e.t}</small></div>
+          </div>
+        `).join('')}
+      </div>
+      <div class="pedido-detalhes">
+        <div><h4>Cliente</h4><p>${pedido.cliente}</p></div>
+        <div><h4>Endereço</h4><p>${pedido.endereco}</p></div>
+        <div><h4>Pagamento</h4><p>${pedido.pagamento}</p></div>
+        <div><h4>Total</h4><p><strong>R$ ${pedido.total.toFixed(2).replace('.',',')}</strong></p></div>
+      </div>
+      <div class="pedido-itens"><h4>Itens</h4>${pedido.itens.map(i => `<div class="pedido-item"><span>${i.emoji||'🍕'} ${i.nome} × ${i.qtd}</span><span>R$ ${(i.preco*i.qtd).toFixed(2).replace('.',',')}</span></div>`).join('')}</div>
+      <a href="index.html" class="btn btn-primary" style="margin-top:1.5rem">Voltar ao Início</a>
+    `;
+
+    // Avança a timeline simulando progresso
+    let etapaAtual = 3;
+    setInterval(() => {
+      if (etapaAtual >= etapas.length) return;
+      document.querySelectorAll('.tl-item')[etapaAtual].classList.add('active');
+      etapaAtual++;
+    }, 5000);
+  }
+</script>
+</body>
+</html>
