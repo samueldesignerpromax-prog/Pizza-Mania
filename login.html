@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login · Pizza Mania</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body class="login-body">
+
+<div class="login-wrap">
+  <div class="login-card">
+    <div class="login-logo">🍕</div>
+    <h1>Pizza<span>Mania</span></h1>
+    <p class="login-sub">Entre ou crie sua conta</p>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="login">Entrar</button>
+      <button class="tab" data-tab="cadastro">Criar Conta</button>
+    </div>
+
+    <form id="formLogin" class="tab-content active">
+      <div class="form-group"><label>E-mail</label><input type="email" id="loginEmail" required></div>
+      <div class="form-group"><label>Senha</label><input type="password" id="loginSenha" required></div>
+      <button type="submit" class="btn btn-primary btn-block">Entrar <i class="fas fa-sign-in-alt"></i></button>
+    </form>
+
+    <form id="formCadastro" class="tab-content">
+      <div class="form-group"><label>Nome</label><input type="text" id="cadNome" required></div>
+      <div class="form-group"><label>E-mail</label><input type="email" id="cadEmail" required></div>
+      <div class="form-group"><label>Senha</label><input type="password" id="cadSenha" required></div>
+      <button type="submit" class="btn btn-primary btn-block">Criar Conta <i class="fas fa-user-plus"></i></button>
+    </form>
+
+    <a href="index.html" class="login-back"><i class="fas fa-arrow-left"></i> Voltar ao site</a>
+  </div>
+</div>
+
+<script src="js/script.js"></script>
+<script>
+  document.querySelectorAll('.tab').forEach(t => t.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    document.getElementById('form' + t.dataset.tab.charAt(0).toUpperCase() + t.dataset.tab.slice(1)).classList.add('active');
+  }));
+
+  document.getElementById('formLogin').addEventListener('submit', e => {
+    e.preventDefault();
+    const email = document.getElementById('loginEmail').value;
+    const users = JSON.parse(localStorage.getItem('pizzaUsers') || '[]');
+    const u = users.find(x => x.email === email);
+    if (u) { localStorage.setItem('pizzaUserLogado', JSON.stringify(u)); showToast('Bem-vindo, ' + u.nome + '! 🍕', 'success'); setTimeout(() => location.href='index.html', 1000); }
+    else showToast('Usuário não encontrado. Crie uma conta.', 'error');
+  });
+
+  document.getElementById('formCadastro').addEventListener('submit', e => {
+    e.preventDefault();
+    const u = { nome: document.getElementById('cadNome').value, email: document.getElementById('cadEmail').value, senha: document.getElementById('cadSenha').value };
+    const users = JSON.parse(localStorage.getItem('pizzaUsers') || '[]');
+    users.push(u);
+    localStorage.setItem('pizzaUsers', JSON.stringify(users));
+    localStorage.setItem('pizzaUserLogado', JSON.stringify(u));
+    showToast('Conta criada com sucesso! 🎉', 'success');
+    setTimeout(() => location.href = 'index.html', 1000);
+  });
+</script>
+</body>
+</html>
