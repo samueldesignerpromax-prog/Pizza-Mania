@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin · Pizza Mania</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header class="header admin-header">
+  <div class="container nav-wrap">
+    <a href="admin.html" class="logo"><span>🍕</span> Pizza<span>Mania</span> <small style="font-size:.6rem;background:#ff6b00;padding:2px 8px;border-radius:20px">ADMIN</small></a>
+    <nav class="nav" id="nav">
+      <a href="admin.html" class="active"><i class="fas fa-chart-line"></i> Dashboard</a>
+      <a href="pedidos-admin.html"><i class="fas fa-receipt"></i> Pedidos</a>
+      <a href="produtos-admin.html"><i class="fas fa-pizza-slice"></i> Produtos</a>
+      <a href="index.html"><i class="fas fa-globe"></i> Ver Site</a>
+    </nav>
+    <div class="nav-actions"><button class="menu-toggle" id="menuToggle"><i class="fas fa-bars"></i></button></div>
+  </div>
+</header>
+
+<section class="section">
+  <div class="container">
+    <h1 class="admin-title">📊 Dashboard</h1>
+
+    <div class="admin-cards">
+      <div class="admin-card"><div class="ac-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a)">💰</div><div><p>Vendas hoje</p><h2>R$ 2.847,50</h2></div></div>
+      <div class="admin-card"><div class="ac-icon" style="background:linear-gradient(135deg,#f97316,#ea580c)">📦</div><div><p>Pedidos hoje</p><h2>42</h2></div></div>
+      <div class="admin-card"><div class="ac-icon" style="background:linear-gradient(135deg,#ef4444,#dc2626)">🍕</div><div><p>Pizzas vendidas</p><h2>87</h2></div></div>
+      <div class="admin-card"><div class="ac-icon" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">👥</div><div><p>Clientes</p><h2>1.234</h2></div></div>
+    </div>
+
+    <div class="admin-grid">
+      <div class="admin-box">
+        <h3>📈 Vendas na semana</h3>
+        <div class="chart">
+          <div class="bar" style="height:40%"><span>Seg</span></div>
+          <div class="bar" style="height:65%"><span>Ter</span></div>
+          <div class="bar" style="height:55%"><span>Qua</span></div>
+          <div class="bar" style="height:80%"><span>Qui</span></div>
+          <div class="bar" style="height:70%"><span>Sex</span></div>
+          <div class="bar" style="height:95%"><span>Sáb</span></div>
+          <div class="bar" style="height:85%"><span>Dom</span></div>
+        </div>
+      </div>
+      <div class="admin-box">
+        <h3>🏆 Produtos mais vendidos</h3>
+        <ul class="top-list">
+          <li><span>1. Mussarela</span><strong>124</strong></li>
+          <li><span>2. Calabresa</span><strong>98</strong></li>
+          <li><span>3. Frango Catupiry</span><strong>87</strong></li>
+          <li><span>4. Pepperoni</span><strong>76</strong></li>
+          <li><span>5. 4 Queijos</span><strong>65</strong></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="admin-box">
+      <h3>🕒 Pedidos Recentes</h3>
+      <div class="tabela-wrap">
+        <table class="tabela">
+          <thead><tr><th>#</th><th>Cliente</th><th>Itens</th><th>Valor</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>#1048</td><td>João Silva</td><td>Pizza Grande + Refri</td><td>R$ 67,90</td><td><span class="status-badge status-recebido">Recebido</span></td></tr>
+            <tr><td>#1047</td><td>Maria Santos</td><td>2 Pizzas Médias</td><td>R$ 89,80</td><td><span class="status-badge status-preparando">Preparando</span></td></tr>
+            <tr><td>#1046</td><td>Carlos Lima</td><td>Pizza Família + Bebida</td><td>R$ 74,90</td><td><span class="status-badge status-entrega">Saiu para entrega</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="footer-bottom">© 2026 Pizza Mania Admin</div></footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
